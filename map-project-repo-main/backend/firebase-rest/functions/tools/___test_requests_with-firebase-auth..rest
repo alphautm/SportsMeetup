@@ -1,0 +1,118 @@
+# Live Firebase
+# Variables:
+#   -baseUrl: API base URL
+#   -API KEY: project API key obtained from Firebase console (website)
+#   -accountUrl: base URL for authentication from Firebase
+//@baseUrl = http://192.168.0.157:5001/sport-map-project/us-central1/api
+//@baseUrl = https://us-central1-sport-map-project.cloudfunctions.net/api
+@baseUrl = https://us-central1-map-sport-project.cloudfunctions.net/api
+@API_KEY = AIzaSyAK4ztg43W46uCHG9Il6T6iFhzCMQDliAw
+@accountUrl = https://identitytoolkit.googleapis.com/v1/accounts
+
+# Each consequence request must be included with access token
+# Then token is obtained after logging in
+
+@accessToken =eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc3MTBiMDE3ZmQ5YjcxMWUwMDljNmMzNmIwNzNiOGE2N2NiNjgyMTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbWFwLXNwb3J0LXByb2plY3QiLCJhdWQiOiJtYXAtc3BvcnQtcHJvamVjdCIsImF1dGhfdGltZSI6MTYyNjY1NzUxNSwidXNlcl9pZCI6IkdXVmhMSUE0TEZQWFlMWFNzMDk4eGV1dzg1RTMiLCJzdWIiOiJHV1ZoTElBNExGUFhZTFhTczA5OHhldXc4NUUzIiwiaWF0IjoxNjI2NjU3NTE1LCJleHAiOjE2MjY2NjExMTUsImVtYWlsIjoiYmFya0BiYXJrLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJiYXJrQGJhcmsuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.CnrpnW86CEpbdeKOAzd8AHhXVffpmLXMtzk0wz0upitgcqXV2saFZuELCgcWG_qaf_0zWNepnFG-z003bD9258-IIwYR84tb82crNc4b8uqvrPJLo2_BAplxjf2aV0X8Su_aoViqN48gYSlgSt0b8Mg2wd601Lw-pH7jzZGRe0jydgrWPDMPA2bI3aFcv453DlfIp4gdiFyZoO3c1XEiD4lUa5l_9CM4pXC94qy3SPX8vV3RLX9mjLMHe-ubBwgT6KOWS2Gl0Qw_mYk02CD0MNzxkZYUZrStnxR9BfOAofYh6GJ7HXqjf24WIHZxbNNMcaelw_RHGI_a1qDkbK0rPA
+@userId=GWVhLIA4LFPXYLXSs098xeuw85E3
+
+############################################################################################################
+## Request 1: Sign up with email / password
+# Accessing the Google Sign up API directly from the clien
+# 
+# API format:
+#    POST https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+# 
+# Documentation:  https://firebase.google.com/docs/reference/rest/auth
+
+POST {{accountUrl}}:signUp?key={{API_KEY}}
+Content-Type: application/json
+
+{
+    "email": "jessica2@mockmail.com",
+    "password": "abc123",
+    "returnSecureToken": true
+}
+
+### Request 2 Sign in with email and password
+# Accessing the Google Sign in API directly from the clien
+# 
+# API format:
+#     POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+POST {{accountUrl}}:signInWithPassword?key={{API_KEY}}
+Content-Type: application/json
+
+{
+    "email": "bark@bark.com",
+    "password": "abc123",
+    "returnSecureToken": true
+}
+############################################################################################################
+
+
+
+############################################################################################################
+# Refactor the signin with Google API, sign in from the backend (with Node JS)
+
+## Request 1: Sign up with email / password  
+POST {{baseUrl}}/auths/signup
+Content-Type: application/json
+
+{
+    "email": "testing@signup.com",
+    "password": "abc123",
+    "displayName" : "ami",
+   "photoUrl": "https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/71/78/5c/71785ce4-30c0-bb00-2c0b-5d2c8124424d/source/512x512bb.jpg"
+}
+
+### Request 2 Sign in with email and password
+POST {{baseUrl}}/auths/signin
+Content-Type: application/json
+
+{
+    "email": "bark@bark.com",
+    "password": "abc123"
+}
+
+### Request 3 : Accessing profile for the signed in user
+GET {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 4 : Accessing all users. 
+# This request should be blocked (in this example of application). The signed-in user
+# can only acccess his/her profile, but not the others'
+GET {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 5 : Accessing the counter info for the signed in user
+GET {{baseUrl}}/counters/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 6 : Update the information of a given counter
+PUT {{baseUrl}}/counters/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "user": "user1",
+    "counter": 0
+}
+
+### Request 7 : Update the information of auth users
+POST {{baseUrl}}/auths/update
+Content-Type: application/json
+
+{
+    "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc3MTBiMDE3ZmQ5YjcxMWUwMDljNmMzNmIwNzNiOGE2N2NiNjgyMTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbWFwLXNwb3J0LXByb2plY3QiLCJhdWQiOiJtYXAtc3BvcnQtcHJvamVjdCIsImF1dGhfdGltZSI6MTYyNjY1NzUxNSwidXNlcl9pZCI6IkdXVmhMSUE0TEZQWFlMWFNzMDk4eGV1dzg1RTMiLCJzdWIiOiJHV1ZoTElBNExGUFhZTFhTczA5OHhldXc4NUUzIiwiaWF0IjoxNjI2NjU3NTE1LCJleHAiOjE2MjY2NjExMTUsImVtYWlsIjoiYmFya0BiYXJrLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJiYXJrQGJhcmsuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.CnrpnW86CEpbdeKOAzd8AHhXVffpmLXMtzk0wz0upitgcqXV2saFZuELCgcWG_qaf_0zWNepnFG-z003bD9258-IIwYR84tb82crNc4b8uqvrPJLo2_BAplxjf2aV0X8Su_aoViqN48gYSlgSt0b8Mg2wd601Lw-pH7jzZGRe0jydgrWPDMPA2bI3aFcv453DlfIp4gdiFyZoO3c1XEiD4lUa5l_9CM4pXC94qy3SPX8vV3RLX9mjLMHe-ubBwgT6KOWS2Gl0Qw_mYk02CD0MNzxkZYUZrStnxR9BfOAofYh6GJ7HXqjf24WIHZxbNNMcaelw_RHGI_a1qDkbK0rPA",
+   "displayName" : "handsomeboi",
+   "photoUrl": "https://upload.wikimedia.org/wikipedia/commons/8/83/Maxine_the_Fluffy_Corgi.jpg"
+}
+
+### Get sport list of a user
+GET {{baseUrl}}/participants?participantId=GWVhLIA4LFPXYLXSs098xeuw85E3
+Content-Type: application/json
+
+### Request: Delete sport
+DELETE {{baseUrl}}/participants

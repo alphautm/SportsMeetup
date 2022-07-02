@@ -1,0 +1,60 @@
+{
+	"users": [
+		{
+			"id": 1,
+			"name": "Iskandar Harith",
+			"photoUrl": "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+			"login": "harith",
+			"password": "123"
+		},
+		{
+			"id": 2,
+			"name": "Chin Long Sun",
+			"photoUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+			"login": "chin",
+			"password": "123"
+		}
+	],
+	"counters": [
+		{
+			"counter": 1,
+			"id": 1,
+			"user": 1
+		},
+		{
+			"counter": 2,
+			"id": 2,
+			"user": 2
+		}
+	],
+	"sports": [
+		{
+			"id": 1,
+			"category": "Basketball",
+			"date": "26-07-2021",
+			"gender": "Male",
+			"imgUrl": "https://res.cloudinary.com/grohealth/image/upload/f_auto,fl_lossy,q_auto/v1581678662/DCUK/Content/iStock-959080376.jpg"
+		},
+		{
+			"id": 2,
+			"category": "Badminton",
+			"date": "21-07-2021",
+			"gender": "Female",
+			"imgUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Badminton-1428046.jpg"
+		},
+		{
+			"id": 3,
+			"category": "Badminton",
+			"date": "15-07-2021",
+			"gender": "Male",
+			"imgUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Badminton-1428046.jpg"
+		},
+		{
+			"id": 4,
+			"category": "Chess",
+			"date": "26-08-2021",
+			"gender": "Male",
+			"imgUrl": "https://images.ctfassets.net/3s5io6mnxfqz/wfAz3zUBbrcf1eSMLZi8u/c03ac28c778813bd72373644ee8b8b02/AdobeStock_364059453.jpeg"
+		}
+	]
+}

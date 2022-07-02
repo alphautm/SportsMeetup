@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "9088767642",
+    "firebase_url": "https://map-sport-project-default-rtdb.firebaseio.com",
+    "project_id": "map-sport-project",
+    "storage_bucket": "map-sport-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9088767642:android:8a114655a197635682b123",
+        "android_client_info": {
+          "package_name": "com.example.porcupine_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9088767642-3qi4lldrr4hfc1eoss06bv2qnhr7fj7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM3Q5sHmvYf0zGfvauzp21iaYisbBrQ6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9088767642-3qi4lldrr4hfc1eoss06bv2qnhr7fj7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
